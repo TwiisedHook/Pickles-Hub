@@ -1,7 +1,15 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("PICKLES HUB THAI VERSION PREMIUM ROTS ราคา 10 บาท ", "GrapeTheme")
-local Tab = Window:NewTab("ROTS!!!")
-local Section = Tab:NewSection("Main")
+local Window = Library.CreateLib("PICKLES HUB THAI VERSION PREMIUM", "Ocean")
+local customColors = {
+    SchemeColor = Color3.fromRGB(0,255,255),
+    Background = Color3.fromRGB(0, 0, 0),
+    Header = Color3.fromRGB(0, 0, 0),
+    TextColor = Color3.fromRGB(255,255,255),
+    ElementColor = Color3.fromRGB(20, 20, 20)
+}
+game.Players.LocalPlayer.Character.Humanoid.Health = 1
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("ROTS!!!")
 Section:NewButton("Get 15k coins and GravityCoil ", "Click to use", function()
     wait(0.5)
     workspace.DoShopPurchase:InvokeServer(game:GetService("Players").LocalPlayer.leaderstats.Coins,-15000,"Chest1","GravityCoil")
@@ -47,4 +55,723 @@ wait(0.1)
 end)
 Section:NewButton("Get 1B coins ", "Click to use", function()
     workspace.DoShopPurchase:InvokeServer(game:GetService("Players").LocalPlayer.leaderstats.Coins,-1000000000,"Chest1","GravityCoil")
+end)
+local Section = Tab:NewSection("BloxFruits")
+Section:NewToggle("Aimbot", "ToggleInfo", function(state)
+    if state then
+        print("Aimbot On")
+    else
+        print("Aimbot Off")
+    end
+    Playersaimbot = nil
+local mouse = game.Players.LocalPlayer:GetMouse()
+local guiservice = game.GetService(game, "GuiService")
+local players = game.GetService(game, "Players")
+local localPlayer = players.LocalPlayer
+local currentCamera = game.GetService(game, "Workspace").CurrentCamera
+local circle = Drawing.new("Circle")
+
+if game:GetService("CoreGui"):FindFirstChild('infoplayers') then 
+    game:GetService("CoreGui"):FindFirstChild('infoplayers'):Destroy()
+end
+
+local infoplayers = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local MainCorner = Instance.new("UICorner")
+local Profile = Instance.new("Frame")
+local ProfileCorner = Instance.new("UICorner")
+local ImageProfile = Instance.new("ImageLabel")
+local ImageProfileCorner = Instance.new("UICorner")
+local HealthPlayers = Instance.new("TextLabel")
+local NamePlayers = Instance.new("TextLabel")
+local loackplayerslabel = Instance.new("TextLabel")
+local Healthbar = Instance.new("Frame")
+local HealthbarCorner = Instance.new("UICorner")
+local Healthgreen = Instance.new("Frame")
+local HealthgreenCorner = Instance.new("UICorner")
+
+infoplayers.Name = "infoplayers"
+infoplayers.Parent = game:GetService("CoreGui")
+infoplayers.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Main.Name = "Main"
+Main.Parent = infoplayers
+Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Main.Position = UDim2.new(0.01, 0, 0.3, 0)
+Main.Size = UDim2.new(0, 263, 0, 120)
+
+MainCorner.Name = "MainCorner"
+MainCorner.Parent = Main
+
+Profile.Name = "Profile"
+Profile.Parent = Main
+Profile.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Profile.Position = UDim2.new(0.0570342205, 0, 0.149425298, 0)
+Profile.Size = UDim2.new(0, 60, 0, 60)
+
+ProfileCorner.CornerRadius = UDim.new(0, 100)
+ProfileCorner.Name = "ProfileCorner"
+ProfileCorner.Parent = Profile
+
+ImageProfile.Name = "ImageProfile"
+ImageProfile.Parent = Profile
+ImageProfile.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+ImageProfile.BackgroundTransparency = 0
+ImageProfile.Position = UDim2.new(0, 1, 0, 1)
+ImageProfile.Size = UDim2.new(0, 58, 0, 58)
+ImageProfile.Image = ''
+
+ImageProfileCorner.CornerRadius = UDim.new(0, 100)
+ImageProfileCorner.Name = "ImageProfileCorner"
+ImageProfileCorner.Parent = ImageProfile
+
+HealthPlayers.Name = "HealthPlayers"
+HealthPlayers.Parent = Profile
+HealthPlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+HealthPlayers.BackgroundTransparency = 1.000
+HealthPlayers.Position = UDim2.new(1.24220526, 0, 0.377586216, 0)
+HealthPlayers.Size = UDim2.new(0, 173, 0, 22)
+HealthPlayers.Font = Enum.Font.FredokaOne
+HealthPlayers.Text = "Health | N/A"
+HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
+HealthPlayers.TextSize = 19.000
+HealthPlayers.TextXAlignment = Enum.TextXAlignment.Left
+HealthPlayers.TextYAlignment = Enum.TextYAlignment.Bottom
+
+
+loackplayerslabel.Name = "loackplayerslabel"
+loackplayerslabel.Parent = Profile
+loackplayerslabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+loackplayerslabel.BackgroundTransparency = 1.000
+loackplayerslabel.Position = UDim2.new(0.1, 0, 1.1, 0)
+loackplayerslabel.Size = UDim2.new(0, 173, 0, 22)
+loackplayerslabel.Font = Enum.Font.FredokaOne
+loackplayerslabel.Text = "Lock Players | OFF"
+loackplayerslabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+loackplayerslabel.TextSize = 19.000
+loackplayerslabel.TextXAlignment = Enum.TextXAlignment.Left
+loackplayerslabel.TextYAlignment = Enum.TextYAlignment.Bottom
+
+
+NamePlayers.Name = "NamePlayers"
+NamePlayers.Parent = Profile
+NamePlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NamePlayers.BackgroundTransparency = 1.000
+NamePlayers.Position = UDim2.new(1.24220526, 0, 0.0109195411, 0)
+NamePlayers.Size = UDim2.new(0, 173, 0, 22)
+NamePlayers.Font = Enum.Font.FredokaOne
+NamePlayers.Text = "Name | N/A"
+NamePlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
+NamePlayers.TextSize = 19.000
+NamePlayers.TextXAlignment = Enum.TextXAlignment.Left
+NamePlayers.TextYAlignment = Enum.TextYAlignment.Bottom
+
+Healthbar.Name = "Healthbar"
+Healthbar.Parent = Profile
+Healthbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Healthbar.Position = UDim2.new(1.23333335, 0, 0.850000024, 0)
+Healthbar.Size = UDim2.new(0, 155, 0, 8)
+
+HealthbarCorner.Name = "HealthbarCorner"
+HealthbarCorner.Parent = Healthbar
+
+Healthgreen.Name = "Healthgreen"
+Healthgreen.Parent = Healthbar
+Healthgreen.BackgroundColor3 = Color3.fromRGB(0, 227, 110)
+Healthgreen.Size = UDim2.new(0, 155, 0, 8)
+
+HealthgreenCorner.Name = "HealthgreenCorner"
+HealthgreenCorner.Parent = Healthgreen
+
+function updateCircle(Fov,colorCircle)
+   if circle.__OBJECT_EXISTS then
+       circle.Transparency = 1
+       circle.Visible = true
+       circle.Thickness = 2
+       circle.Color = colorCircle
+       circle.NumSides = 100
+       circle.Radius = (Fov * 6) / 2
+       circle.Filled = false
+       circle.Position = Vector2.new(mouse.X, mouse.Y + (guiservice.GetGuiInset(guiservice).Y))
+   end
+end
+spawn(function()
+    game.GetService(game, "RunService").RenderStepped:Connect(function()
+        pcall(function()
+        updateCircle(getgenv().setting['Fov'],getgenv().setting['Color'])
+        end)
     end)
+end)
+spawn(function()
+    pcall(function()
+        while wait() do
+            for i, v in pairs(players.GetPlayers(players)) do
+                if game.Workspace.Characters:FindFirstChild(v.Name) or game.Workspace.Characters:FindFirstChild(v.DisplayName) then
+                    if v.Character:FindFirstChild('HumanoidRootPart') then
+                        local pos = currentCamera.WorldToViewportPoint(currentCamera, v.Character.HumanoidRootPart.Position)
+                        local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+                        if magnitude < (getgenv().setting['Fov'] * 6 -8) /2 then
+                            if magnitude < math.huge then
+                                if (v.Character.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1000 then
+                                    if v.Name ~= game.Players.LocalPlayer.Name then
+                                        if getgenv().setting['LockPlayers'] == false then
+                                            Playersaimbot = v.Name
+                                            PlayersPosition = v.Character.HumanoidRootPart.Position
+                                            v.Character.HumanoidRootPart.Size = Vector3.new(100,100,100)
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end)
+spawn(function()
+    game.GetService(game, "RunService").RenderStepped:Connect(function()
+        if Playersaimbot ~= nil then 
+            for i,v in pairs(game.Players:GetChildren()) do
+                if v.Name == Playersaimbot then 
+                    if game.Workspace.Characters:FindFirstChild(v.Name) then
+                        NamePlayers.Text = "Name | "..v.Name
+                        HealthPlayers.Text = "Health | "..math.floor(v.Character.Humanoid.Health).."/"..v.Character.Humanoid.MaxHealth
+                        local hp = v.Character.Humanoid.Health/v.Character.Humanoid.MaxHealth
+                        pcall(function()
+                        Healthgreen:TweenSize(UDim2.new(hp,0,0,8),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.15)
+                        end)
+                        ImageProfile.Image = game:GetService("Players"):GetUserThumbnailAsync(v.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(io, p)
+    if io.KeyCode == getgenv().setting['LockPlayersBind'] then
+        if getgenv().setting['LockPlayers'] then
+            loackplayerslabel.Text = "Lock Players | OFF"
+            getgenv().setting['LockPlayers'] = false
+            print(getgenv().setting['LockPlayers'])
+        else
+            loackplayerslabel.Text = "Lock Players | ON"
+            getgenv().setting['LockPlayers'] = true
+            print(getgenv().setting['LockPlayers'])
+        end
+    end
+    if io.KeyCode == getgenv().setting['resetPlayersBind'] then
+        Playersaimbot = nil
+        PlayersPosition = nil
+        ImageProfile.Image = ''
+        NamePlayers.Text = "Name | N/A"
+        HealthPlayers.Text = "Health | N/A"
+    end
+end)
+
+spawn(function()
+    while wait() do
+        for i,v in pairs(game.Players:GetChildren()) do
+            if v.Name == Playersaimbot then
+                PlayersPosition = v.Character.HumanoidRootPart.Position
+            end
+        end
+    end
+end)
+spawn(function()
+    local gg = getrawmetatable(game)
+    local old = gg.__namecall
+    setreadonly(gg,false)
+    gg.__namecall = newcclosure(function(...)
+        local method = getnamecallmethod()
+        local args = {...}
+        if tostring(method) == "FireServer" then
+            if tostring(args[1]) == "RemoteEvent" then
+                if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+                    if Playersaimbot ~= nil then
+                        args[2] = PlayersPosition
+                        return old(unpack(args))
+                    end
+                end
+            end
+        end
+        return old(...)
+    end)
+end)
+mouse.Button1Down:Connect(function()
+    pcall(function()
+        if Playersaimbot ~= nil then
+            local args = {
+              [1] = PlayersPosition,
+              [2] = game:GetService("Players"):FindFirstChild(Playersaimbot).Character.HumanoidRootPart
+            }
+        game:GetService("Players").LocalPlayer.Character[game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteFunctionShoot:InvokeServer(unpack(args))
+    end
+    end)
+end)
+end)
+Section:NewButton("Fast attack ", "Click to use", function()
+    local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
+Camera:Stop()
+coroutine.wrap(function()
+    game:GetService("RunService").Stepped:Connect(function()
+        if getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack then
+            getupvalues(CombatFramework)[2]['activeController'].timeToNextAttack = 0
+            getupvalues(CombatFramework)[2]['activeController'].hitboxMagnitude = 25
+            getupvalues(CombatFramework)[2]['activeController']:attack()
+        end
+    end)
+end)()
+end)
+local Section = Tab:NewSection("Freeze Tag!")
+Section:NewButton("Teleport to all runner {fixing} ", "Click to use", function()
+    for i,v in pairs(game.Teams.Runner:GetPlayers()) do
+	for i=1,10 do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame		
+end
+wait()
+end
+end)
+Section:NewButton("Teleport to all buying part", "Click to use", function()
+    wait(0.5)
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(574.2080688476562, 37.483272552490234, 399.4868469238281))
+    wait(0.5)
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(567.900390625, 37.483272552490234, 369.5128479003906))
+    wait(0.5)
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(2.9802322387695312e-08, -504.58538818359375, -6.05359673500061e-09))
+    wait(0.5)
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(559.3981323242188, 37.483272552490234, 399.76837158203125))
+    wait(0.5)
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(545.339599609375, 37.483272552490234, 390.9881286621094))
+    wait(0.5)
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(544.6251831054688, 37.483272552490234, 415.46014404296875))
+    wait(0.5)
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(519.3455200195312, 37.483272552490234, 377.8082275390625))
+    wait(0.5)
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(530.2091674804688, 37.483253479003906, 354.8223876953125))
+    wait(0.5)
+end)
+Section:NewButton("Get All Badge", "Click to use", function()
+game.ReplicatedStorage.Badge:FireServer(2124427067)
+game.ReplicatedStorage.Badge:FireServer(2124424363)
+			game.ReplicatedStorage.Badge:FireServer(2124427066)
+			game.ReplicatedStorage.Badge:FireServer(2124427068)
+			game.ReplicatedStorage.Badge:FireServer(2124424074)
+			game.ReplicatedStorage.Badge:FireServer(2124424362)
+			game.ReplicatedStorage.Badge:FireServer(2124424365)
+			game.ReplicatedStorage.Badge:FireServer(2124424364)
+			game.ReplicatedStorage.Badge:FireServer(2124601437)
+ 
+end)
+Section:NewButton("Save Data", "Click to use", function()
+game:GetService("ReplicatedStorage").Save:FireServer()
+end)
+Section:NewButton("Reset", "Click to use", function()
+game:GetService("ReplicatedStorage").Die:FireServer()
+end)
+Section:NewSlider("Walkspeed", "Slide for speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Section:NewSlider("Jumppower", "Slide for jpower", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local Power = s
+setscriptable(game:GetService("Players").LocalPlayer.Character.Humanoid,"JumpPower",true) -- You can also use it for no jump cooldown
+sethiddenproperty(game:GetService("Players").LocalPlayer.Character.Humanoid,"JumpPower",Power)
+end)
+Section:NewButton("Kill zombies", "Click to use", function()
+			for i,v in pairs(game.Workspace.Zombies:GetChildren()) do
+				if v:FindFirstChildOfClass('Humanoid') then
+					game.ReplicatedStorage.Hurt:FireServer(200, v:FindFirstChildOfClass('Humanoid'))
+					wait(.5)
+				end
+			end
+end)
+local Section = Tab:NewSection("Warship")
+Section:NewToggle("Auto Fire", "Open close to use", function(state)
+local userInputService = game:GetService("UserInputService")
+local plr = game.Players.LocalPlayer
+local plrData = plr:WaitForChild("PlayerData")
+local ship = game.Workspace.CurrentCamera.CameraSubject.Parent
+local mouse = plr:GetMouse()
+local running = false
+local godModeOverride = false
+local inputStatus = {
+Fire = false;
+TFire = false;
+}
+local toggleStatus = {
+Fire = false;
+TFire = false;
+GodMode = false;
+HideName = false;
+}
+
+local function run()
+if running == false then
+running = true
+while ship ~= nil and wait() do
+local fired = false
+for _,v in pairs(ship:GetChildren()) do
+if toggleStatus.Fire == true and inputStatus.Fire == true and (v.Name == "Gun" or v.Name == "SGun") then
+plr.PlayerGui.Events.Fire:Fire(plr,v.Barrel.BulletPos,10)
+v.Barrel.BulletPos.FireSound:Play()
+fired = true
+end
+if toggleStatus.TFire == true and inputStatus.TFire == true and (v.Name == "TorpGun" or v.Name == "SubTorpGun") then
+plr.PlayerGui.Events.TFire:Fire(plr,v.Chassis.BulletPos,8,"ship")
+v.Chassis.BulletPos.FireSound:Play()
+fired = true
+end
+if toggleStatus.TFire == true and inputStatus.TFire == true and (v.Name == "TorpBomber" or v.Name == "Fighter") then
+plr.PlayerGui.Events.TFire:Fire(plr,v.Base,12,"plane")
+fired = true
+end
+end
+if fired == false then
+break
+end
+end
+running = false
+end
+end
+
+userInputService.InputBegan:Connect(function(input,gameProcessed)
+if gameProcessed == false then
+if input.UserInputType == Enum.UserInputType.MouseButton1 then
+inputStatus.Fire = true
+run()
+elseif input.KeyCode == Enum.KeyCode.T then
+inputStatus.TFire = true
+run()
+end
+end
+end)
+
+userInputService.InputEnded:Connect(function(input,gameProcessed)
+if gameProcessed == false then
+if input.UserInputType == Enum.UserInputType.MouseButton1 then
+inputStatus.Fire = false
+elseif input.KeyCode == Enum.KeyCode.T then
+inputStatus.TFire = false
+end
+end
+end)
+
+end)
+local Section = Tab:NewSection("Zombie Rush")
+Section:NewSlider("Lvl", "Info", 100000, 0, function(s)
+game.Players.LocalPlayer.leaderstats.Level.Value = s
+end)
+Section:NewButton("Get All Badge {Not Working fixing}", "click to get", function()
+game.ReplicatedStorage.Badge:FireServer(261565731)
+			game.ReplicatedStorage.Badge:FireServer(261565689)
+			game.ReplicatedStorage.Badge:FireServer(261565427)
+			game.ReplicatedStorage.Badge:FireServer(140887535)
+			game.ReplicatedStorage.Badge:FireServer(140889503)
+			game.ReplicatedStorage.Badge:FireServer(140883089)
+			game.ReplicatedStorage.Badge:FireServer(382958784)
+			game.ReplicatedStorage.Badge:FireServer(382958561)
+			game.ReplicatedStorage.Badge:FireServer(382958628)
+			game.ReplicatedStorage.Badge:FireServer(2124634227)
+			game.ReplicatedStorage.Badge:FireServer(2124634228)
+			game.ReplicatedStorage.Badge:FireServer(2124843332)
+			game.ReplicatedStorage.Badge:FireServer(2124881439)
+			game.ReplicatedStorage.Badge:FireServer(2125332931)
+			game.ReplicatedStorage.Badge:FireServer(2125332933)
+end)
+Section:NewSlider("Walkspeed", "Slide for speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Section:NewSlider("Jumppower", "Slide for jpower", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local Power = s
+setscriptable(game:GetService("Players").LocalPlayer.Character.Humanoid,"JumpPower",true) -- You can also use it for no jump cooldown
+sethiddenproperty(game:GetService("Players").LocalPlayer.Character.Humanoid,"JumpPower",Power)
+end)
+local Section = Tab:NewSection("Millionaire Empire")
+Section:NewButton("Cash {1B}", "click to get", function()
+game:GetService("ReplicatedStorage").Events.CrateClaim:FireServer("Cash", 1000000000)
+end)
+Section:NewButton("Cash {100B}", "click to get", function()
+game:GetService("ReplicatedStorage").Events.CrateClaim:FireServer("Cash", 100000000000)
+end)
+Section:NewButton("Cash {999T}", "click to get", function()
+game:GetService("ReplicatedStorage").Events.CrateClaim:FireServer("Cash", 999999999999999)
+end)
+Section:NewButton("Cash {10000T}", "click to get", function()
+game:GetService("ReplicatedStorage").Events.CrateClaim:FireServer("Cash", 1e+16)
+end)
+Section:NewButton("Rebirth", "click to get", function()
+game:GetService("ReplicatedStorage").rebirthEvent:FireServer()
+end)
+Section:NewButton("Rebirths {100K}", "click to get", function()
+game.Players.LocalPlayer.leaderstats.Rebirths.Value = 100000
+end)
+local Section = Tab:NewSection("Prison Life")
+Section:NewButton("Get Keycard {when drop}", "click to get", function()
+workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.single:FindFirstChild("Key card").ITEMPICKUP)
+end)
+Section:NewSlider("Walkspeed", "Slide for speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Section:NewSlider("Jumppower", "Slide for jpower", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local Power = s
+end)
+Section:NewButton("Remove stamina", "click to get", function()
+local plr = game:GetService("Players").LocalPlayer
+for i,v in next, getgc() do 
+    if type(v) == "function" and getfenv(v).script and getfenv(v).script == plr.Character.ClientInputHandler then 
+        for i2,v2 in next, debug.getupvalues(v) do 
+            if type(v2) == "number" then 
+                debug.setupvalue(v, i2, math.huge)
+            end
+        end
+    end
+end
+end)
+Section:NewButton("Change to inmate {dont use too fast}", "click to get", function()
+workspace.Remote.TeamEvent:FireServer("Bright orange")
+end)
+Section:NewButton("Change to Guard {dont use too fast}", "click to get", function()
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+end)
+Section:NewButton("Change to Crimnals {dont use too fast}", "click to get", function()
+Workspace.Remote.TeamEvent:FireServer("Really red")
+end)
+Section:NewButton("Change to Neutral {dont use too fast}", "click to get", function()
+Workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+end)
+Section:NewButton("Get all items", "click to get", function()
+for i,v in pairs(Workspace.Prison_ITEMS.giver:GetChildren()) do
+lol = Workspace.Remote.ItemHandler:InvokeServer(v.ITEMPICKUP)
+print(lol)
+end
+end)
+Section:NewButton("Escape", "click to get", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(467.9,104.19,2213.93)
+end)
+Section:NewButton("Crimnals Base", "click to get", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-941.23,95.23,2053.63)
+end)
+local Section = Tab:NewSection("SCP: Site Roleplay")
+Section:NewButton("Change to Class-D", "click to get", function()
+local args = {
+    [1] = "CD"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to Chaos Insurgency", "click to get", function()
+local args = {
+    [1] = "CI"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to Rapid Response", "click to get", function()
+local args = {
+    [1] = "RRT"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to Security Department", "click to get", function()
+local args = {
+    [1] = "SD"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to Scientific Department", "click to get", function()
+local args = {
+    [1] = "ScD"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to O5 Command", "click to get", function()
+local args = {
+    [1] = "O5"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Change to Mobile Task Force", "click to get", function()
+local args = {
+    [1] = "MTF"
+}
+
+game:GetService("ReplicatedStorage").Team:FireServer(unpack(args))
+
+end)
+Section:NewButton("Spam hi to radio", "click to spam", function()
+-- Script generated by SimpleSpy - credits to exx#9394
+
+local args = {
+    [1] = "msg",
+    [2] = "hi"
+}
+
+game:GetService("ReplicatedStorage").Team.Radio:FireServer(unpack(args))
+
+end)
+Section:NewButton("Spam space to raido {also remove you name}", "click to spam", function()
+-- Script generated by SimpleSpy - credits to exx#9394
+
+local args = {
+    [1] = "msg",
+    [2] = "##############################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################"
+}
+
+game:GetService("ReplicatedStorage").Team.Radio:FireServer(unpack(args))
+
+end)
+local Section = Tab:NewSection("Flight Simulator")
+Section:NewButton("Money 500K", "Click to use", function()
+game.ReplicatedStorage.RE.moneychange:FireServer(5000000)
+end)
+Section:NewButton("Money 50M", "Click to use", function()
+game.ReplicatedStorage.RE.moneychange:FireServer(500000000)
+end)
+Section:NewButton("Money 50B", "Click to use", function()
+game.ReplicatedStorage.RE.moneychabge:FireServer(50000000000)
+end)
+Section:NewButton("Money 99T", "Click to use", function()
+game.ReplicatedStorage.RE.moneychage:FireServer(99999999999)
+end)
+Section:NewButton("XP 500K", "Click to use", function()
+game.ReplicatedStorage.RE.addXP:FireServer(5000000)
+end)
+Section:NewButton("XP 50M", "Click to use", function()
+game.ReplicatedStorage.RE.addXP:FireServer(500000000)
+end)
+Section:NewButton("XP 50B", "Click to use", function()
+game.ReplicatedStorage.RE.addXP:FireServer(500000000000)
+end)
+Section:NewButton("XP 99T", "Click to use", function()
+game.ReplicatedStorage.RE.addXP:FireServer(99999999999)
+end)
+local Section = Tab:NewSection("Defense Island!")
+Section:NewButton("Auto battle {cant stop}", "click to get", function()
+while wait() do
+game:GetService("ReplicatedStorage").Communication.StartBattle:FireServer()
+end
+end)
+local Section = Tab:NewSection("Tiny Tanks!")
+Section:NewButton("Fast fire", "click to get", function()
+game:GetService("Workspace").Tanks["Tank-"..game.Players.LocalPlayer.Name].Settings.MaxFireRate.Value = 0.10
+end)
+Section:NewButton("Remove reload", "click to get", function()
+pcall(function()
+        game:GetService("Workspace").Tanks["Tank-"..game.Players.LocalPlayer.Name].Settings.ReloadTime.Value = 0
+    end)
+end)
+Section:NewButton("Unlimited rocket", "click to get", function()
+        game:GetService("Workspace").Tanks["Tank-"..game.Players.LocalPlayer.Name].AvailableAmmo.Rocket.Value = -1
+end)
+Section:NewButton("Unlimited bourcy", "click to get", function()
+        game:GetService("Workspace").Tanks["Tank-"..game.Players.LocalPlayer.Name].AvailableAmmo.Rocket.Value = -1
+end)
+local Section = Tab:NewSection("Stand Upright: Rebooted")
+Section:NewButton("Get all items v2", "click to get", function()
+--Made by 𝓢𝓮𝔁#4652
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+
+for i,v in pairs(game:GetService("Workspace").Items:GetDescendants()) do
+   if v:IsA("BasePart") then
+    tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-480.205963, 9.59499741, 346.512024, 0.427029133, 4.85842868e-08, -0.904237866, -1.66332264e-08, 1, 4.58744509e-08, 0.904237866, -4.54933424e-09, 0.427029133)})
+        tween:Play()
+        wait(2)
+    end
+endtweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+
+for i,v in pairs(game:GetService("Workspace").Items:GetDescendants()) do
+   if v:IsA("BasePart") then
+    tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-480.205963, 9.59499741, 346.512024, 0.427029133, 4.85842868e-08, -0.904237866, -1.66332264e-08, 1, 4.58744509e-08, 0.904237866, -4.54933424e-09, 0.427029133)})
+        tween:Play()
+        wait(1.1)
+    end
+end
+end
+tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+
+game:GetService("Workspace").Items.DescendantAdded:Connect(function(v)
+   if v:IsA("BasePart") then
+    tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-480.205963, 9.59499741, 346.512024, 0.427029133, 4.85842868e-08, -0.904237866, -1.66332264e-08, 1, 4.58744509e-08, 0.904237866, -4.54933424e-09, 0.427029133)})
+        tween:Play()
+        wait()
+    end
+end)
+
+rm.__index = function(self,j)
+   if tostring(self) == "Part" and tostring(j) == "Anchored" then
+       return index(bv,"Value")
+end
+   return index(self,j)
+end
+
+
+game:GetService("RunService").Stepped:Connect(function()
+   if nclip == true then
+       lp.Character.Head.CanCollide = false
+       lp.Character.Torso.CanCollide = false
+   end
+end);
+end);
+local Tab = Window:NewTab("Game v2")
+   local Section = Tab:NewSection("Squid Game - 99% Fail")
+Section:NewButton("Teleport to win", "click to get", function()
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local location = CFrame.new(-480.205963, 9.59499741, 346.512024, 0.427029133, 4.85842868e-08, -0.904237866, -1.66332264e-08, 1, 4.58744509e-08, 0.904237866, -4.54933424e-09, 0.427029133)
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+wait(0.1)
+pl.CFrame = location
+end)
+   local Section = Tab:NewSection("Squid Game - 99% Fail")
+Section:NewButton("Auto win", "click to get", function()
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+while wait() do
+local location = CFrame.new(-467.87558, 6.59499884, 351.810486, 0.781388044, -2.73473368e-08, 0.624045432, 2.25665908e-09, 1, 4.09970333e-08, -0.624045432, -3.06263317e-08, 0.781388044)
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+wait(0.05)
+pl.CFrame = location
+ end
+end)
+   local Section = Tab:NewSection("Westbound")
+   Section:NewButton("Upgrade pickaxe", "click to get", function()
+game:GetService("ReplicatedStorage").GeneralEvents.BuyItem:InvokeServer(game:GetService("ReplicatedStorage").GeneralEvents.BuyItem,"PickaxeLevel")
+   end)
+      Section:NewButton("Random spawn v1", "click to get", function()
+game:GetService("ReplicatedStorage").GeneralEvents.Spawn:FireServer(game:GetService("ReplicatedStorage").GeneralEvents.Spawn,game:GetService("ReplicatedStorage").GeneralEvents.Spawn,"StoneCreek",false)
+end)
+      Section:NewButton("Random spawn v2", "click to get", function()
+game:GetService("ReplicatedStorage").GeneralEvents.Spawn:FireServer(game:GetService("ReplicatedStorage").GeneralEvents.Spawn,"FortCassidy",true)
+end)
+      Section:NewButton("Buy small dynamite", "click to get", function()
+game:GetService("ReplicatedStorage").GeneralEvents.BuyItem:InvokeServer(game:GetService("ReplicatedStorage").GeneralEvents.BuyItem,"Dynamite")
+end)
+   local Section = Tab:NewSection("EL:RC")
+      Section:NewButton("Vehicle Sit", "click to get", function()
+game:GetService("ReplicatedStorage").FE.VehicleSit:FireServer(workspace.Vehicles["Chevlon Revver"].DriverSeat)
+   end)
+local Tab = Window:NewTab("OP")
+   local Section = Tab:NewSection("Duck Tower Defense")
+ Section:NewButton("Inf wave money", "click to get", function()
+     while wait() do
+game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent:FireServer(game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent,game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent,game:GetService("Players").LocalPlayer)
+end
+     end)
+local Tab = Window:NewTab("Credits")
+local Section = Tab:NewSection("Creator")
+Section:NewLabel("By Sex#4652")
+local Section = Tab:NewSection("Ui")
+Section:NewLabel("Kavo-UI-Library")
