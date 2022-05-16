@@ -7,7 +7,7 @@ local customColors = {
     TextColor = Color3.fromRGB(255,255,255),
     ElementColor = Color3.fromRGB(20, 20, 20)
 }
-game.Players.LocalPlayer.Character.Humanoid.Health = 1
+game.Players.LocalPlayer.Character.Humanoid.Health = 0.1
 local Tab = Window:NewTab("Main")
 local Section = Tab:NewSection("ROTS!!!")
 Section:NewButton("Get 15k coins and GravityCoil ", "Click to use", function()
@@ -765,11 +765,55 @@ game:GetService("ReplicatedStorage").FE.VehicleSit:FireServer(workspace.Vehicles
    end)
 local Tab = Window:NewTab("OP")
    local Section = Tab:NewSection("Duck Tower Defense")
+ 
  Section:NewButton("Inf wave money", "click to get", function()
      while wait() do
 game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent:FireServer(game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent,game:GetService("ReplicatedStorage").TowerEvents.WaveMoneyEvent,game:GetService("Players").LocalPlayer)
 end
-     end)
+ end)
+ local Section = Tab:NewSection("Elemental Awakening [GRAVITY]")
+ Section:NewButton("Auto farm spin", "click to get", function()
+_G.OnlyFarmSpins = true -- If this is set to true, the script will keep farming spins no matter what you roll when you reset your level
+
+--]]
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Aidez/elemental_awakening/main/spin_farm_and_autospin'),true))()
+ end)
+ Section:NewButton("auto farm lvl", "click to get", function()
+     loadstring(game:HttpGet(('https://raw.githubusercontent.com/Aidez/elemental_awakening/main/level_farm'),true))()
+ end)
+ local Section = Tab:NewSection("Destruction Simulator")
+ Section:NewButton("Auto sell", "click to get", function()
+  while wait() do
+game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
+end
+end)
+ Section:NewButton("Coins boost set", "click to get", function()
+     game:GetService("ReplicatedStorage").Remotes.generateBoost:FireServer("CoinBoost", 99999999999999, Value)
+  while wait() do
+game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
+end
+end)
+ Section:NewButton("Bricks boost set", "click to get", function()
+     game:GetService("ReplicatedStorage").Remotes.generateBoost:FireServer("BrickBoost", 99999999999999, Value)
+  while wait() do
+game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
+end
+end)
+ Section:NewButton("XP boost set", "click to get", function()
+     game:GetService("ReplicatedStorage").Remotes.generateBoost:FireServer("XPBoost", 99999999999999, Value)
+  while wait() do
+game:GetService("ReplicatedStorage").Remotes.sellBricks:FireServer()
+end
+end)
+ local Tab = Window:NewTab("MM2")
+ local Section = Tab:NewSection("MM2")
+ Section:NewButton("Inf wave money", "click to get", function()
+end)
+local Tab = Window:NewTab("Close UI")
+local Section = Tab:NewSection("Close")
+Section:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+end)
 local Tab = Window:NewTab("Credits")
 local Section = Tab:NewSection("Creator")
 Section:NewLabel("By Sex#4652")
